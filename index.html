@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es-mx">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="index.css" />
+    <title>Encriptador de texto</title>
+  </head>
+  <body>
+    <header>
+      <img src="./assets/Logo.png" alt="logo-alura" />
+      <p>Encriptador de texto</p>
+    </header>
+    <main class="encriptador">
+      <div class="contenedor__introducir">
+        <textarea
+          id="texto-cifrar"
+          placeholder="Ingrese el texto aquí"
+          onkeyup="letorDeCaracteres()"
+        ></textarea>
+        <p class="contenedor__introducir__lector__caracteres">
+          número de caracteres: 0 / 2000
+        </p>
+      </div>
+      <div class="encriptador__menu">
+        <p class="encriptador__menu__alerta">
+          <img
+            src="./assets/bi_exclamation-circle-fill.png"
+            alt="icono-alerta"
+          />
+          Solo letras minúsculas y sin acento
+        </p>
+        <div class="contenedor__btns">
+          <button
+            class="contenedor__btns__encriptar"
+            type="button"
+            onclick="cifrarTexto()"
+          >
+            Encriptar
+          </button>
+          <button
+            class="contenedor__btns__desencriptar"
+            type="button"
+            onclick="descifrarTexto()"
+          >
+            Desencriptar
+          </button>
+          <button
+            class="contenedor__btns__Restablecer"
+            type="button"
+            onclick="restablecer()"
+          >
+            Restablecer
+          </button>
+        </div>
+      </div>
+      <div class="encriptador__contenedor__encriptado">
+        <img
+          class="encriptador__contenedor__encriptado__texto__img"
+          src="./assets/Muñeco.png"
+          alt="figura"
+        />
+        <p class="encriptador__contenedor__encriptado__texto__msg1">
+          Ningún mensaje fue encontrado
+        </p>
+        <p class="encriptador__contenedor__encriptado__texto__msg2">
+          Ingresa el texto que desees encriptar o desencriptar.
+        </p>
+      </div>
+    </main>
+    <div class="contenedor__mensaje__copiado mensaje__borrado">
+      <img
+        class="mensaje__copiado__cerrar"
+        src="./assets/x.png"
+        alt="boton"
+        onclick="cerrarMensaje(event)"
+      />
+      <p class="mensaje__copiado">Texto copiado al portapapeles</p>
+    </div>
+    <div class="contenedor__mensaje__error mensaje__borrado">
+      <p class="mensaje__error">
+        Superó la cantidad maxima de caracteres, por favor elimine alguno o
+        restablezca el área de texto
+      </p>
+      <img
+        class="mensaje__error__cerrar"
+        style="background-color: white"
+        src="./assets/x.png"
+        alt="boton"
+        onclick="cerrarMensaje(event)"
+      />
+    </div>
+    <footer>Javier Vasquez Piñeres</footer>
+  </body>
+  <script src="app.js"></script>
+</html>
