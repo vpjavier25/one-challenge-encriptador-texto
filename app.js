@@ -156,7 +156,7 @@ function cerrarMensaje(evento){
 async function manejarCopiado() {
   let textoCopiar = document.querySelector(".resultado").innerText;
 
-  animacionMensaje("mensaje__copiado");
+  animacionMensaje("contenedor__mensaje__copiado", 5000);
 
   try {
     await copiar(textoCopiar);
