@@ -189,6 +189,7 @@ textarea::placeholder {
 .resultado {
     color: var(--terciary-color);
     white-space: initial;
+    overflow: auto;
     width: 100%;
     height: 90%;
     border-radius: var(--round-corners);
@@ -223,9 +224,9 @@ footer {
     background-color: var(--secondary-color);
     color: white;
     padding: var(--padding-text);
-    /* animation-name: aparecer;
-    animation-duration: 1s;
-    animation-timing-function: ease-in-out; */
+    animation-name: aparecer;
+    animation-duration: 0.5s;
+    animation-timing-function: ease-in-out;
 }
 
 .contenedor__mensaje__error{
