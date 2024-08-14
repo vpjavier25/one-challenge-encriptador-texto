@@ -188,7 +188,7 @@ textarea::placeholder {
 
 .resultado {
     color: var(--terciary-color);
-    overflow: auto;
+    white-space: initial;
     width: 100%;
     height: 90%;
     border-radius: var(--round-corners);
