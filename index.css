@@ -213,11 +213,25 @@ textarea::placeholder {
 }
 
 footer {
+    display: flex;
+    gap: 5px;
+    justify-content: center;
+    align-items: center;
     width: 100%;
-    padding: 20px 20px;
+    padding: 10px 10px;
     text-align: center;
     margin-top: 50px;
     font-weight: 600;
+    border: 3px double var(--secondary-color);
+}
+
+footer p {
+    height: 20px;
+}
+
+footer img, footer a{
+    width: 30px;
+    height: 30px;
 }
 
 .contenedor__mensaje__error, .contenedor__mensaje__copiado {
