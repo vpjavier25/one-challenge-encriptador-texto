@@ -53,13 +53,13 @@ function crearElementoResultado(texto, elementoPadre) {
 
 
 // devulve false en caso de que se supere la cantidad maxima de caracteres
-function validarCantidadCaracteres(texto) {
+function cantidadPermitidaCaracteres(texto) {
   return !(contarCaracteres(texto) > numeroMaximoCaracteres);
 }
 
 function cifrarTexto() {
   let textoCifrar = document.querySelector("#texto-cifrar").value;
-  if(!validarCantidadCaracteres(textoCifrar)){
+  if(!cantidadPermitidaCaracteres(textoCifrar)){
     animacionMensaje("contenedor__mensaje__error", 5000);
     return;
   }
@@ -78,7 +78,10 @@ function cifrarTexto() {
 
 function descifrarTexto() {
   let textoDescifrar = document.querySelector("#texto-cifrar").value;
-  validarCantidadCaracteres(textoDescifrar);
+  if(!cantidadPermitidaCaracteres(textoDescifrar)){
+    animacionMensaje("contenedor__mensaje__error", 5000);
+    return;
+  }
   let resultadoElementoContenedor = document.querySelector(
     ".encriptador__contenedor__encriptado"
   );
@@ -107,7 +110,9 @@ function restablecer() {
 
   textoCifrar.value = "";
 
-  contador.innerText = "número de caracteres: 0";
+  contador.innerText = "número de caracteres: 0 / 2000";
+
+  contador.classList.remove("contenedor__introducir__lector__caracteres_atencion")
 
   if (!imagenDecorativa) {
     textoDescifradoContenedor.innerHTML = `<img
@@ -191,10 +196,10 @@ function letorDeCaracteres() {
   let numeroCaracteres = contarCaracteres(texto);
 
   contador.innerText = `número de caracteres: ${formatearNumero.format(
-    numeroCaracteres
-  )}`;
+    numeroCaracteres 
+  )} / 2000`;
 
-  if(!validarCantidadCaracteres(texto)){
+  if(!cantidadPermitidaCaracteres(texto)){
     contador.classList.add("contenedor__introducir__lector__caracteres_atencion")
   } else {
     contador.classList.remove("contenedor__introducir__lector__caracteres_atencion")
