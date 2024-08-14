@@ -126,11 +126,17 @@ textarea::placeholder {
 
 .encriptador__menu__alerta {
     font-size: 12px;
+    width: var(--width-btns);
     color: var(--secodary-color);
     opacity: 0.8;
     text-align: center;
     display: flex;
     gap: 7px;
+}
+
+.encriptador__menu__alerta_img{
+    width: 20px;
+    height: 20px;
 }
 
 .contenedor__btns__encriptar,
@@ -211,6 +217,7 @@ footer {
     padding: 20px 20px;
     text-align: center;
     margin-top: 50px;
+    font-weight: 600;
 }
 
 .contenedor__mensaje__error, .contenedor__mensaje__copiado {
@@ -270,7 +277,7 @@ footer {
     }
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1300px) {
     :root {
         --width-btns: 200px;
         --height-btns: 50px;
@@ -302,6 +309,10 @@ footer {
         padding: 10px 0px 10px 0px;
         flex-wrap: wrap;
         justify-content: center;
+    }
+
+    .encriptador__menu__alerta{
+        width: 100%;
     }
 
     .encriptador__contenedor__encriptado__texto__img {

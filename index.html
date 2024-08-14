@@ -25,10 +25,11 @@
       <div class="encriptador__menu">
         <p class="encriptador__menu__alerta">
           <img
+            class="encriptador__menu__alerta_img"
             src="./assets/bi_exclamation-circle-fill.png"
             alt="icono-alerta"
           />
-          Solo letras minúsculas y sin acento
+          Solo letras minúsculas. Las letras con acento no serán encriptadas.
         </p>
         <div class="contenedor__btns">
           <button
@@ -76,12 +77,12 @@
         alt="boton"
         onclick="cerrarMensaje(event)"
       />
-      <p class="mensaje__copiado">Texto copiado al portapapeles</p>
+      <p class="mensaje__copiado">Texto copiado al portapapeles.</p>
     </div>
     <div class="contenedor__mensaje__error mensaje__borrado">
       <p class="mensaje__error">
-        Superó la cantidad maxima de caracteres, por favor elimine alguno o
-        restablezca el área de texto
+        Superó la cantidad maxima de caracteres, por favor elimine algunos o
+        restablezca el área de texto.
       </p>
       <img
         class="mensaje__error__cerrar"
