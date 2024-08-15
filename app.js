@@ -1,6 +1,17 @@
 const desplazamiento = 6;
 const numeroMaximoCaracteres = 2000;
 let timeOuts = {};
+let resultadoTextoPredeterminado = `<img
+                class="encriptador__contenedor__encriptado__texto__img"
+                src="./assets/Muñeco.png"
+                alt="figura"
+            />
+            <p class="encriptador__contenedor__encriptado__texto__msg1">
+                Ningún mensaje fue encontrado
+            </p>
+            <p class="encriptador__contenedor__encriptado__texto__msg2">
+                Ingresa el texto que desees encriptar o desencriptar.
+            </p>`;
 
 //Se utiliza el cifrado con el algoritmo de cesar
 function cifradoCesar(texto) {
@@ -53,7 +64,6 @@ function crearElementoResultado(texto, elementoPadre) {
   elementoPadre.appendChild(resultadoElemento);
 }
 
-
 // devulve false en caso de que se supere la cantidad maxima de caracteres
 function cantidadPermitidaCaracteres(texto) {
   return !(contarCaracteres(texto) > numeroMaximoCaracteres);
@@ -61,40 +71,46 @@ function cantidadPermitidaCaracteres(texto) {
 
 function cifrarTexto() {
   let textoCifrar = document.querySelector("#texto-cifrar").value;
-  if(!cantidadPermitidaCaracteres(textoCifrar)){
-    animacionMensaje("contenedor__mensaje__error", 5000);
-    return;
+
+  if (textoCifrar) {
+    if (!cantidadPermitidaCaracteres(textoCifrar)) {
+      animacionMensaje("contenedor__mensaje__error", 5000);
+      return;
+    }
+    let resultadoElementoContenedor = document.querySelector(
+      ".encriptador__contenedor__encriptado"
+    );
+    let cifrarTexto = cifradoCesar(textoCifrar);
+    let botonCopiar;
+
+    crearElementoResultado(cifrarTexto, resultadoElementoContenedor);
+
+    botonCopiar = crearBotonCopiar();
+
+    resultadoElementoContenedor.appendChild(botonCopiar);
   }
-  let resultadoElementoContenedor = document.querySelector(
-    ".encriptador__contenedor__encriptado"
-  );
-  let cifrarTexto = cifradoCesar(textoCifrar);
-  let botonCopiar;
-
-  crearElementoResultado(cifrarTexto, resultadoElementoContenedor);
-
-  botonCopiar = crearBotonCopiar();
-
-  resultadoElementoContenedor.appendChild(botonCopiar);
 }
 
 function descifrarTexto() {
   let textoDescifrar = document.querySelector("#texto-cifrar").value;
-  if(!cantidadPermitidaCaracteres(textoDescifrar)){
-    animacionMensaje("contenedor__mensaje__error", 5000);
-    return;
+  
+  if(textoDescifrar){
+    if (!cantidadPermitidaCaracteres(textoDescifrar)) {
+      animacionMensaje("contenedor__mensaje__error", 5000);
+      return;
+    }
+    let resultadoElementoContenedor = document.querySelector(
+      ".encriptador__contenedor__encriptado"
+    );
+    let descifrarTexto = descifradoCesar(textoDescifrar);
+    let botonCopiar;
+  
+    crearElementoResultado(descifrarTexto, resultadoElementoContenedor);
+  
+    botonCopiar = crearBotonCopiar();
+  
+    resultadoElementoContenedor.appendChild(botonCopiar);
   }
-  let resultadoElementoContenedor = document.querySelector(
-    ".encriptador__contenedor__encriptado"
-  );
-  let descifrarTexto = descifradoCesar(textoDescifrar);
-  let botonCopiar;
-
-  crearElementoResultado(descifrarTexto, resultadoElementoContenedor);
-
-  botonCopiar = crearBotonCopiar();
-
-  resultadoElementoContenedor.appendChild(botonCopiar);
 }
 
 function restablecer() {
@@ -114,20 +130,12 @@ function restablecer() {
 
   contador.innerText = "número de caracteres: 0 / 2000";
 
-  contador.classList.remove("contenedor__introducir__lector__caracteres_atencion")
+  contador.classList.remove(
+    "contenedor__introducir__lector__caracteres_atencion"
+  );
 
   if (!imagenDecorativa) {
-    textoDescifradoContenedor.innerHTML = `<img
-                class="encriptador__contenedor__encriptado__texto__img"
-                src="./assets/Muñeco.png"
-                alt="figura"
-            />
-            <p class="encriptador__contenedor__encriptado__texto__msg1">
-                Ningún mensaje fue encontrado
-            </p>
-            <p class="encriptador__contenedor__encriptado__texto__msg2">
-                Ingresa el texto que desees encriptar o desencriptar.
-            </p>`;
+    textoDescifradoContenedor.innerHTML = resultadoTextoPredeterminado;
   }
 }
 
@@ -140,22 +148,23 @@ function copiar(texto) {
 function animacionMensaje(clase = "", tiempo = 0) {
   let mensaje = document.querySelector(`.${clase}`);
   let timeOut;
-  mensaje.classList.toggle("mensaje__borrado");
+  mensaje.classList.remove("mensaje__borrado");
 
   timeOut = setTimeout(() => {
-    mensaje.classList.toggle("mensaje__borrado");
+    mensaje.classList.add("mensaje__borrado");
   }, tiempo);
 
   timeOuts[clase] = timeOut;
-
 }
 
-function cerrarMensaje(evento){
-  let elemento = document.querySelector(`.${evento.target.className}`).parentNode
+function cerrarMensaje(evento) {
+  let elemento = document.querySelector(
+    `.${evento.target.className}`
+  ).parentNode;
   let claseElementoPadre = elemento.className.split(" ")[0];
-  elemento.classList.toggle("mensaje__borrado");
-  
-  if(Object.keys(timeOuts).includes(elemento.className.split(" ")[0])){
+  elemento.classList.add("mensaje__borrado");
+
+  if (Object.keys(timeOuts).includes(claseElementoPadre)) {
     clearTimeout(timeOuts[claseElementoPadre]);
   }
 }
@@ -198,12 +207,16 @@ function letorDeCaracteres() {
   let numeroCaracteres = contarCaracteres(texto);
 
   contador.innerText = `número de caracteres: ${formatearNumero.format(
-    numeroCaracteres 
+    numeroCaracteres
   )} / 2000`;
 
-  if(!cantidadPermitidaCaracteres(texto)){
-    contador.classList.add("contenedor__introducir__lector__caracteres_atencion")
+  if (!cantidadPermitidaCaracteres(texto)) {
+    contador.classList.add(
+      "contenedor__introducir__lector__caracteres_atencion"
+    );
   } else {
-    contador.classList.remove("contenedor__introducir__lector__caracteres_atencion")
+    contador.classList.remove(
+      "contenedor__introducir__lector__caracteres_atencion"
+    );
   }
 }
