@@ -193,6 +193,7 @@ textarea::placeholder {
 }
 
 .resultado {
+    background-color: white;
     color: var(--terciary-color);
     white-space: initial;
     overflow: auto;
@@ -291,6 +292,16 @@ footer img, footer a{
     }
 }
 
+@media (max-width: 900px){
+    textarea {
+        font-size: 24px;
+    }
+
+    .encriptador__contenedor__encriptado__texto__img {
+        display: none;
+    }
+}
+
 @media (max-width: 1300px) {
     :root {
         --width-btns: 200px;
@@ -307,11 +318,7 @@ footer img, footer a{
 
     .contenedor__introducir, .encriptador__contenedor__encriptado {
         width: 100%;
-        height: 50vh;
-    }
-
-    textarea {
-        font-size: 24px;
+        height: 40vh;
     }
 
     .encriptador__menu {
@@ -329,7 +336,10 @@ footer img, footer a{
         width: 100%;
     }
 
-    .encriptador__contenedor__encriptado__texto__img {
-        display: none;
+    .encriptador__contenedor__encriptado__texto__img{
+        width: 35%;
     }
+
+   
 }
+

@@ -38,7 +38,9 @@ function descifradoCesar(texto) {
 }
 
 function crearElementoResultado(texto, elementoPadre) {
-  let resultadoElemento = document.createElement("p");
+  let resultadoElemento = document.createElement("textarea");
+
+  resultadoElemento.disabled = true;
 
   while (elementoPadre.firstChild) {
     elementoPadre.removeChild(elementoPadre.firstChild);
@@ -159,7 +161,7 @@ function cerrarMensaje(evento){
 }
 
 async function manejarCopiado() {
-  let textoCopiar = document.querySelector(".resultado").innerText;
+  let textoCopiar = document.querySelector(".resultado").value;
 
   animacionMensaje("contenedor__mensaje__copiado", 5000);
 
