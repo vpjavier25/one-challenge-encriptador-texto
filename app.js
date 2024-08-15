@@ -93,8 +93,8 @@ function cifrarTexto() {
 
 function descifrarTexto() {
   let textoDescifrar = document.querySelector("#texto-cifrar").value;
-  
-  if(textoDescifrar){
+
+  if (textoDescifrar) {
     if (!cantidadPermitidaCaracteres(textoDescifrar)) {
       animacionMensaje("contenedor__mensaje__error", 5000);
       return;
@@ -104,11 +104,11 @@ function descifrarTexto() {
     );
     let descifrarTexto = descifradoCesar(textoDescifrar);
     let botonCopiar;
-  
+
     crearElementoResultado(descifrarTexto, resultadoElementoContenedor);
-  
+
     botonCopiar = crearBotonCopiar();
-  
+
     resultadoElementoContenedor.appendChild(botonCopiar);
   }
 }
@@ -147,7 +147,16 @@ function copiar(texto) {
 
 function animacionMensaje(clase = "", tiempo = 0) {
   let mensaje = document.querySelector(`.${clase}`);
+  console.log(mensaje.className)
+  let mensajeBorradoClase = mensaje.className.split(" ")[1];
   let timeOut;
+
+  console.log(timeOuts[clase]);
+  if (timeOuts[clase]) {
+    clearTimeout(timeOuts[clase]);
+    timeOuts[clase] = "";
+  }
+
   mensaje.classList.remove("mensaje__borrado");
 
   timeOut = setTimeout(() => {
@@ -166,13 +175,14 @@ function cerrarMensaje(evento) {
 
   if (Object.keys(timeOuts).includes(claseElementoPadre)) {
     clearTimeout(timeOuts[claseElementoPadre]);
+    timeOuts[claseElementoPadre] = "";
   }
 }
 
 async function manejarCopiado() {
   let textoCopiar = document.querySelector(".resultado").value;
 
-  animacionMensaje("contenedor__mensaje__copiado", 5000);
+  animacionMensaje("contenedor__mensaje__copiado", 2000);
 
   try {
     await copiar(textoCopiar);

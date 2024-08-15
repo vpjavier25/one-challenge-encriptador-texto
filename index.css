@@ -269,6 +269,15 @@ footer img, footer a{
     display: none;
 }
 
+.mensaje__error__cerrar, .mensaje__copiado__cerrar {
+    background-color: white;
+}
+
+.mensaje__copiado__cerrar:hover, .mensaje__error__cerrar:hover {
+    cursor: pointer;
+    background-color: red;
+}
+
 .contenedor__btns__encriptar:hover,
 .contenedor__btns__Restablecer:hover {
     cursor: pointer;
@@ -292,15 +301,6 @@ footer img, footer a{
     }
 }
 
-@media (max-width: 900px){
-    textarea {
-        font-size: 24px;
-    }
-
-    .encriptador__contenedor__encriptado__texto__img {
-        display: none;
-    }
-}
 
 @media (max-width: 1300px) {
     :root {
@@ -314,6 +314,10 @@ footer img, footer a{
 
     .encriptador {
         flex-direction: column;
+    }
+
+    textarea {
+        font-size: 24px;
     }
 
     .contenedor__introducir, .encriptador__contenedor__encriptado {
@@ -334,12 +338,10 @@ footer img, footer a{
 
     .encriptador__menu__alerta{
         width: 100%;
-    }
-
+    }  
+    
     .encriptador__contenedor__encriptado__texto__img{
-        width: 35%;
+        display: none;
     }
-
-   
 }
 
