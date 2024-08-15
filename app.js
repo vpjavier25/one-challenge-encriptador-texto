@@ -48,7 +48,7 @@ function crearElementoResultado(texto, elementoPadre) {
 
   resultadoElemento.classList.add("resultado");
 
-  resultadoElemento.innerText = texto;
+  resultadoElemento.value = texto;
 
   elementoPadre.appendChild(resultadoElemento);
 }
