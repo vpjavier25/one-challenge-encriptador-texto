@@ -147,11 +147,9 @@ function copiar(texto) {
 
 function animacionMensaje(clase = "", tiempo = 0) {
   let mensaje = document.querySelector(`.${clase}`);
-  console.log(mensaje.className)
   let mensajeBorradoClase = mensaje.className.split(" ")[1];
   let timeOut;
-
-  console.log(timeOuts[clase]);
+  
   if (timeOuts[clase]) {
     clearTimeout(timeOuts[clase]);
     timeOuts[clase] = "";
