@@ -193,6 +193,7 @@ textarea::placeholder {
 }
 
 .resultado {
+    font-size: 24px;
     background-color: white;
     color: var(--terciary-color);
     white-space: initial;
