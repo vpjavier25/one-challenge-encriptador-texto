@@ -23,8 +23,10 @@ function cifradoCesar(texto) {
       cifrado += String.fromCharCode(
         ((posicion + desplazamiento - 97) % 26) + 97
       );
-    } else {
-      cifrado += texto[i];
+    } else if (posicion < 58 && posicion > 47) {
+      cifrado += String.fromCharCode(
+        ((posicion + desplazamiento - 48) % 10) + 48
+      );
     }
   }
 
@@ -40,8 +42,10 @@ function descifradoCesar(texto) {
       descifrado += String.fromCharCode(
         122 - ((122 - (posicion - desplazamiento)) % 26)
       );
-    } else {
-      descifrado += texto[i];
+    } else if (posicion < 58 && posicion > 47) {
+      descifrado += String.fromCharCode(
+        57 - ((57 - (posicion - desplazamiento)) % 10)
+      );
     }
   }
 
@@ -149,7 +153,7 @@ function animacionMensaje(clase = "", tiempo = 0) {
   let mensaje = document.querySelector(`.${clase}`);
   let mensajeBorradoClase = mensaje.className.split(" ")[1];
   let timeOut;
-  
+
   if (timeOuts[clase]) {
     clearTimeout(timeOuts[clase]);
     timeOuts[clase] = "";
