@@ -1,4 +1,24 @@
-const desplazamiento = 6;
+const codigoEncriptar = {
+  a: "ai",
+  e: "enter",
+  i: "imes",
+  o: "ober",
+  u: "ufat",
+};
+const codigoDesencriptar = {
+  ai: "a",
+  enter: "e",
+  imes: "i",
+  ober: "o",
+  ufat: "u",
+};
+let mensaje = [];
+
+//se excluyeron los signos de puntuación
+const signosPuntuacionsCharCode = [
+  46, 44, 33, 63, 58, 59, 34, 39, 40, 41, 45, 8212, 8230, 171, 187, 91, 93, 123,
+  125,
+];
 const numeroMaximoCaracteres = 2000;
 let timeOuts = {};
 let resultadoTextoPredeterminado = `<img
@@ -14,42 +34,106 @@ let resultadoTextoPredeterminado = `<img
             </p>`;
 
 //Se utiliza el cifrado con el algoritmo de cesar
-function cifradoCesar(texto) {
+function cifrado(texto) {
   let cifrado = "";
+  let error = false;
 
   for (let i = 0; i < texto.length; i++) {
-    let posicion = texto.charCodeAt(i);
-    if (posicion < 123 && posicion > 96) {
-      cifrado += String.fromCharCode(
-        ((posicion + desplazamiento - 97) % 26) + 97
-      );
-    } else if (posicion < 58 && posicion > 47) {
-      cifrado += String.fromCharCode(
-        ((posicion + desplazamiento - 48) % 10) + 48
-      );
+    let charCode = texto.charCodeAt(i);
+    if (
+      (charCode < 123 && charCode > 96) ||
+      (charCode < 58 && charCode > 47) ||
+      charCode === 32 ||
+      signosPuntuacionsCharCode.includes(charCode)
+    ) {
+      cifrado = codigoEncriptar[texto[i]]
+        ? cifrado + codigoEncriptar[texto[i]]
+        : cifrado + texto[i];
+    } else {
+      error = true;
+      break;
     }
   }
 
-  return cifrado;
+  return [error, cifrado];
 }
 
-function descifradoCesar(texto) {
+function descifrado(texto) {
   let descifrado = "";
+  let error = false;
+  let posicion = 0;
 
-  for (let i = 0; i < texto.length; i++) {
-    let posicion = texto.charCodeAt(i);
-    if (posicion < 123 && posicion > 96) {
-      descifrado += String.fromCharCode(
-        122 - ((122 - (posicion - desplazamiento)) % 26)
-      );
-    } else if (posicion < 58 && posicion > 47) {
-      descifrado += String.fromCharCode(
-        57 - ((57 - (posicion - desplazamiento)) % 10)
-      );
+  while (posicion < texto.length) {
+    let charCode = texto.charCodeAt(posicion);
+    if (
+      (charCode < 123 && charCode > 96) ||
+      (charCode < 58 && charCode > 47) ||
+      charCode === 32 ||
+      signosPuntuacionsCharCode.includes(charCode)
+    ) {
+      switch (texto[posicion]) {
+        case "a":
+          mensaje.push(texto[posicion] + texto[posicion + 1]);
+          posicion += 2;
+          break;
+        case "e":
+          mensaje.push(
+            texto[posicion] +
+              texto[posicion + 1] +
+              texto[posicion + 2] +
+              texto[posicion + 3] +
+              texto[posicion + 4]
+          );
+          posicion += 5;
+          break;
+        case "i":
+          mensaje.push(
+            texto[posicion] +
+              texto[posicion + 1] +
+              texto[posicion + 2] +
+              texto[posicion + 3]
+          );
+          posicion += 4;
+          break;
+        case "o":
+          mensaje.push(
+            texto[posicion] +
+              texto[posicion + 1] +
+              texto[posicion + 2] +
+              texto[posicion + 3]
+          );
+          posicion += 4;
+          break;
+        case "u":
+          mensaje.push(
+            texto[posicion] +
+              texto[posicion + 1] +
+              texto[posicion + 2] +
+              texto[posicion + 3]
+          );
+          posicion += 4;
+          break;
+        default:
+          mensaje.push(texto[posicion]);
+          posicion++;
+      }
+      console.log(posicion);
+      console.log(mensaje);
+    } else {
+      error = true;
+      break;
     }
   }
 
-  return descifrado;
+  for (let i = 0; i < mensaje.length; i++) {
+    descifrado = codigoDesencriptar[mensaje[i]]
+      ? descifrado + codigoDesencriptar[mensaje[i]]
+      : descifrado + mensaje[i];
+  }
+
+  mensaje = [];
+
+  return [error, descifrado];
 }
 
 function crearElementoResultado(texto, elementoPadre) {
@@ -73,21 +157,30 @@ function cantidadPermitidaCaracteres(texto) {
   return !(contarCaracteres(texto) > numeroMaximoCaracteres);
 }
 
+//validar caracteres validos a encriptar
+
 function cifrarTexto() {
   let textoCifrar = document.querySelector("#texto-cifrar").value;
 
   if (textoCifrar) {
     if (!cantidadPermitidaCaracteres(textoCifrar)) {
-      animacionMensaje("contenedor__mensaje__error", 5000);
+      animacionMensaje("contenedor__mensaje__error__numero__caracteres", 5000);
       return;
     }
+
     let resultadoElementoContenedor = document.querySelector(
       ".encriptador__contenedor__encriptado"
     );
-    let cifrarTexto = cifradoCesar(textoCifrar);
+    let [error, textoCifrado] = cifrado(textoCifrar);
+
+    if (error) {
+      animacionMensaje("contenedor__mensaje__error__caracteres__validos", 5000);
+      return;
+    }
+
     let botonCopiar;
 
-    crearElementoResultado(cifrarTexto, resultadoElementoContenedor);
+    crearElementoResultado(textoCifrado, resultadoElementoContenedor);
 
     botonCopiar = crearBotonCopiar();
 
@@ -106,7 +199,19 @@ function descifrarTexto() {
     let resultadoElementoContenedor = document.querySelector(
       ".encriptador__contenedor__encriptado"
     );
-    let descifrarTexto = descifradoCesar(textoDescifrar);
+
+    let [error, descifrarTexto] = descifrado(textoDescifrar);
+
+    if (error) {
+      if (error) {
+        animacionMensaje(
+          "contenedor__mensaje__error__caracteres__validos",
+          5000
+        );
+        return;
+      }
+    }
+
     let botonCopiar;
 
     crearElementoResultado(descifrarTexto, resultadoElementoContenedor);

@@ -30,7 +30,7 @@
             src="./assets/bi_exclamation-circle-fill.png"
             alt="icono-alerta"
           />
-          Solo letras minúsculas. Las letras con acento no serán encriptadas.
+          Solo letras minúsculas y sin acento.
         </p>
         <div class="contenedor__btns">
           <button
@@ -79,13 +79,24 @@
       />
       <p class="mensaje__copiado">Texto copiado al portapapeles.</p>
     </div>
-    <div class="contenedor__mensaje__error mensaje__borrado">
-      <p class="mensaje__error">
+    <div class="contenedor__mensaje__error__numero__caracteres mensaje__borrado">
+      <p class="mensaje__error__numero__caracteres">
         Superó la cantidad maxima de caracteres, por favor elimine algunos o
         restablezca el área de texto.
       </p>
       <img
-        class="mensaje__error__cerrar"
+        class="mensaje__error__numero__caracteres__cerrar"
+        src="./assets/x.png"
+        alt="boton"
+        onclick="cerrarMensaje(event)"
+      />
+    </div>
+    <div class="contenedor__mensaje__error__caracteres__validos mensaje__borrado">
+      <p class="mensaje__error__caracteres__validos">
+        Asegúrese de no ingresar caracteres en mayúsculas, caracteres especiales o letras con acento.
+      </p>
+      <img
+        class="mensaje__error__caracteres__validos__cerrar"
         src="./assets/x.png"
         alt="boton"
         onclick="cerrarMensaje(event)"

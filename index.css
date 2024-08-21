@@ -100,14 +100,14 @@ textarea::placeholder {
     font-weight: 200;
 }
 
-.contenedor__introducir__lector__caracteres{
+.contenedor__introducir__lector__caracteres {
     padding: var(--padding-text);
     color: var(--terciary-color);
     font-size: 14px;
     text-align: end;
 }
 
-.contenedor__introducir__lector__caracteres_atencion{
+.contenedor__introducir__lector__caracteres_atencion {
     font-weight: 600;
     color: var(--secondary-color);
 }
@@ -134,7 +134,7 @@ textarea::placeholder {
     gap: 7px;
 }
 
-.encriptador__menu__alerta_img{
+.encriptador__menu__alerta_img {
     width: 20px;
     height: 20px;
 }
@@ -230,12 +230,15 @@ footer p {
     height: 20px;
 }
 
-footer img, footer a{
+footer img,
+footer a {
     width: 30px;
     height: 30px;
 }
 
-.contenedor__mensaje__error, .contenedor__mensaje__copiado {
+.contenedor__mensaje__error__caracteres__validos,
+.contenedor__mensaje__error__numero__caracteres,
+.contenedor__mensaje__copiado {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -251,7 +254,8 @@ footer img, footer a{
     animation-timing-function: ease-in-out;
 }
 
-.contenedor__mensaje__error{
+.contenedor__mensaje__error__caracteres__validos,
+.contenedor__mensaje__error__numero__caracteres {
     width: 100%;
 }
 
@@ -259,7 +263,8 @@ footer img, footer a{
     font-size: 14px;
 }
 
-.mensaje__error {
+.mensaje__error__caracteres__validos,
+.mensaje__error__numero__caracteres {
     width: 90%;
     font-size: 16px;
     text-align: center;
@@ -269,11 +274,15 @@ footer img, footer a{
     display: none;
 }
 
-.mensaje__error__cerrar, .mensaje__copiado__cerrar {
+.mensaje__error__numero__caracteres__cerrar,
+.mensaje__error__caracteres__validos__cerrar, 
+.mensaje__copiado__cerrar {
     background-color: white;
 }
 
-.mensaje__copiado__cerrar:hover, .mensaje__error__cerrar:hover {
+.mensaje__error__numero__caracteres__cerrar:hover,
+.mensaje__error__caracteres__validos__cerrar:hover, 
+.mensaje__copiado__cerrar:hover {
     cursor: pointer;
     background-color: red;
 }
@@ -320,7 +329,8 @@ footer img, footer a{
         font-size: 24px;
     }
 
-    .contenedor__introducir, .encriptador__contenedor__encriptado {
+    .contenedor__introducir,
+    .encriptador__contenedor__encriptado {
         width: 100%;
         height: 40vh;
     }
@@ -336,12 +346,11 @@ footer img, footer a{
         justify-content: center;
     }
 
-    .encriptador__menu__alerta{
+    .encriptador__menu__alerta {
         width: 100%;
-    }  
-    
-    .encriptador__contenedor__encriptado__texto__img{
+    }
+
+    .encriptador__contenedor__encriptado__texto__img {
         display: none;
     }
 }
-
