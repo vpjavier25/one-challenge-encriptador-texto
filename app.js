@@ -12,14 +12,15 @@ const codigoDesencriptar = {
   ober: "o",
   ufat: "u",
 };
-let mensaje = [];
+let mensajeCifrado = [];
+let mensajeDesifrado = [];
 
 //se excluyeron los signos de puntuación
 const signosPuntuacionsCharCode = [
   46, 44, 33, 63, 58, 59, 34, 39, 40, 41, 45, 8212, 8230, 171, 187, 91, 93, 123,
-  125,
+  125, 10, 13,
 ];
-const numeroMaximoCaracteres = 2000;
+const numeroMaximoCaracteres = 5000;
 let timeOuts = {};
 let resultadoTextoPredeterminado = `<img
                 class="encriptador__contenedor__encriptado__texto__img"
@@ -73,11 +74,11 @@ function descifrado(texto) {
     ) {
       switch (texto[posicion]) {
         case "a":
-          mensaje.push(texto[posicion] + texto[posicion + 1]);
+          mensajeDesifrado.push(texto[posicion] + texto[posicion + 1]);
           posicion += 2;
           break;
         case "e":
-          mensaje.push(
+          mensajeDesifrado.push(
             texto[posicion] +
               texto[posicion + 1] +
               texto[posicion + 2] +
@@ -87,7 +88,7 @@ function descifrado(texto) {
           posicion += 5;
           break;
         case "i":
-          mensaje.push(
+          mensajeDesifrado.push(
             texto[posicion] +
               texto[posicion + 1] +
               texto[posicion + 2] +
@@ -96,7 +97,7 @@ function descifrado(texto) {
           posicion += 4;
           break;
         case "o":
-          mensaje.push(
+          mensajeDesifrado.push(
             texto[posicion] +
               texto[posicion + 1] +
               texto[posicion + 2] +
@@ -105,7 +106,7 @@ function descifrado(texto) {
           posicion += 4;
           break;
         case "u":
-          mensaje.push(
+          mensajeDesifrado.push(
             texto[posicion] +
               texto[posicion + 1] +
               texto[posicion + 2] +
@@ -114,24 +115,22 @@ function descifrado(texto) {
           posicion += 4;
           break;
         default:
-          mensaje.push(texto[posicion]);
+          mensajeDesifrado.push(texto[posicion]);
           posicion++;
       }
-      console.log(posicion);
-      console.log(mensaje);
     } else {
       error = true;
       break;
     }
   }
 
-  for (let i = 0; i < mensaje.length; i++) {
-    descifrado = codigoDesencriptar[mensaje[i]]
-      ? descifrado + codigoDesencriptar[mensaje[i]]
-      : descifrado + mensaje[i];
+  for (let i = 0; i < mensajeDesifrado.length; i++) {
+    descifrado = codigoDesencriptar[mensajeDesifrado[i]]
+      ? descifrado + codigoDesencriptar[mensajeDesifrado[i]]
+      : descifrado + mensajeDesifrado[i];
   }
 
-  mensaje = [];
+  mensajeDesifrado = [];
 
   return [error, descifrado];
 }
@@ -193,7 +192,7 @@ function descifrarTexto() {
 
   if (textoDescifrar) {
     if (!cantidadPermitidaCaracteres(textoDescifrar)) {
-      animacionMensaje("contenedor__mensaje__error", 5000);
+      animacionMensaje("contenedor__mensaje__error__numero__caracteres", 5000);
       return;
     }
     let resultadoElementoContenedor = document.querySelector(
@@ -237,7 +236,7 @@ function restablecer() {
 
   textoCifrar.value = "";
 
-  contador.innerText = "número de caracteres: 0 / 2000";
+  contador.innerText = `número de caracteres: 0 / ${numeroMaximoCaracteres}`;
 
   contador.classList.remove(
     "contenedor__introducir__lector__caracteres_atencion"
@@ -325,7 +324,7 @@ function letorDeCaracteres() {
 
   contador.innerText = `número de caracteres: ${formatearNumero.format(
     numeroCaracteres
-  )} / 2000`;
+  )} / ${numeroMaximoCaracteres}`;
 
   if (!cantidadPermitidaCaracteres(texto)) {
     contador.classList.add(
