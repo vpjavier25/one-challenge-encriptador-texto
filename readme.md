@@ -9,7 +9,7 @@ Aplicación con funcionalidad para encriptar y desencriptar texto.
 - `Funcionalidad 1`: Encriptar texto.
 - `Funcionalidad 2`: Desencriptar texto.
 
-![Descripción de la imagen](/assets/ejemplo.png)
+![Descripción de la imagen](/assets/image.png)
 
 ## Acceso al proyecto
 
